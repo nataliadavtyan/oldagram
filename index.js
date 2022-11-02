@@ -1,38 +1,14 @@
-const posts = [
-    {
-        name: "Vincent van Gogh",
-        username: "vincey1853",
-        location: "Zundert, Netherlands",
-        avatar: "images/avatar-vangogh.jpg",
-        post: "images/post-vangogh.jpg",
-        comment: "just took a few mushrooms lol",
-        likes: 21
-    },
-    {
-        name: "Gustave Courbet",
-        username: "gus1819",
-        location: "Ornans, France",
-        avatar: "images/avatar-courbet.jpg",
-        post: "images/post-courbet.jpg",
-        comment: "i'm feelin a bit stressed tbh",
-        likes: 4
-    },
-        {
-        name: "Joseph Ducreux",
-        username: "jd1735",
-        location: "Paris, France",
-        avatar: "images/avatar-ducreux.jpg",
-        post: "images/post-ducreux.jpg",
-        comment: "gm friends! which coin are YOU stacking up today?? post below and WAGMI!",
-        likes: 152
-    }
-]
+import { posts } from '/data.js'
 
 const newsfeedEl = document.getElementById("newsfeed-el")
-let posted = ""
+let imgEl = []
+let heartEl = []
 
 function renderPost(){
+    let posted = ""
     for (let i = 0; i < posts.length; i++) {
+        heartEl[i] = `heart-el-${i}`
+        imgEl[i] = `img-el-${i}`
         posted += `
         <div id="post">    
             <header class="header">
@@ -42,10 +18,10 @@ function renderPost(){
                     <span class="location">${posts[i].location}</span>
                 </div>
             </header>
-            <img class="img" id="img-el" src="${posts[i].post}">
+            <img class="img" id="img-el-${i}" src="${posts[i].post}">
             <footer>
                 <div class="icon-bar">
-                    <img class="icon" id="heart-el" src="images/icon-heart.png">
+                    <img class="icon" id="heart-el-${i}" src="images/icon-heart.png">
                     <img class="icon" src="images/icon-comment.png">
                     <img class="icon" src="images/icon-dm.png">
                 </div>
@@ -53,7 +29,7 @@ function renderPost(){
                     <span class="bold" id="likes-el">${posts[i].likes} likes</span>
                 </div>
                 <div>
-                    <span><span class="bold">${posts[i].username}</span> ${posts[i].comment}</span>
+                    <span><span class="bold" id="comment-el">${posts[i].username}</span> ${posts[i].comment}</span>
                 </div>
             </footer>
         </div>
@@ -64,31 +40,20 @@ function renderPost(){
 
 renderPost()
 
-let likesEl = document.getElementById("likes-el")
-const heartEl = document.getElementById("heart-el")
-const imgEl = document.getElementById("img-el")
-// console.log(likesEl)
-
-
-function addLikePost0() {
-    posts[0].likes += 1
-    likesEl.textContent = `${posts[0].likes} likes`
-}
-
-// function addLikePost1() {
-//     posts[1].likes += 1
-//     likesEl.textContent = `${posts[1].likes} likes`
-// }
-
-// function addLikePost2() {
-//     posts[2].likes += 1
-//     likesEl.textContent = `${posts[2].likes} likes`
-// }
-
-heartEl.addEventListener("click", function() {
-    addLikePost0()
+newsfeedEl.addEventListener('click', function(e){
+    for (let i = 0; i < posts.length; i++) {
+        if(e.target.id === heartEl[i]){
+            posts[i].likes += 1
+            renderPost()
+        }
+    }
 })
 
-imgEl.addEventListener("dblclick", function(){
-    addLikePost0()
+newsfeedEl.addEventListener('dblclick', function(e){
+    for (let i = 0; i < posts.length; i++) {
+        if(e.target.id === imgEl[i]){
+            posts[i].likes += 1
+            renderPost()
+        }
+    }
 })
