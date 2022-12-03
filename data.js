@@ -1,3 +1,6 @@
+import { v4 as uuidv4 } from 'https://jspm.dev/uuid'
+// console.log(uuidv4())
+
 export const posts = [
     {
         name: "Vincent van Gogh",
@@ -6,7 +9,9 @@ export const posts = [
         avatar: "images/avatar-vangogh.jpg",
         post: "images/post-vangogh.jpg",
         comment: "just took a few mushrooms lol",
-        likes: 21
+        likes: 21,
+        isLiked: false,
+        uuid: uuidv4()
     },
     {
         name: "Gustave Courbet",
@@ -15,7 +20,9 @@ export const posts = [
         avatar: "images/avatar-courbet.jpg",
         post: "images/post-courbet.jpg",
         comment: "i'm feelin a bit stressed tbh",
-        likes: 4
+        likes: 4,
+        isLiked: false,
+        uuid: uuidv4()
     },
         {
         name: "Joseph Ducreux",
@@ -24,6 +31,8 @@ export const posts = [
         avatar: "images/avatar-ducreux.jpg",
         post: "images/post-ducreux.jpg",
         comment: "gm friends! which coin are YOU stacking up today?? post below and WAGMI!",
-        likes: 152
+        likes: 152,
+        isLiked: false,
+        uuid: uuidv4()
     }
 ]

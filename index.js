@@ -1,59 +1,93 @@
 import { posts } from '/data.js'
 
 const newsfeedEl = document.getElementById("newsfeed-el")
-let imgEl = []
-let heartEl = []
 
-function renderPost(){
-    let posted = ""
-    for (let i = 0; i < posts.length; i++) {
-        heartEl[i] = `heart-el-${i}`
-        imgEl[i] = `img-el-${i}`
+document.addEventListener('click', function(e){
+    if(e.target.dataset.like){
+        handleLikeClick(e.target.dataset.like)
+    }
+})
+
+document.addEventListener('dblclick', function(e){
+    if(e.target.dataset.doubleLike){
+        handleDoubleClickLike(e.target.dataset.doubleLike)
+    }
+})
+
+function handleLikeClick(postId){
+    const targetObject = posts.filter(function(post){
+        return post.uuid === postId
+    })[0]
+        
+    if(targetObject.isLiked){
+        targetObject.likes--
+    } else {
+        targetObject.likes++
+    }
+    targetObject.isLiked = !targetObject.isLiked
+    render()
+}
+
+function handleDoubleClickLike(postId){
+    const targetObject = posts.filter(function(post){
+        return post.uuid === postId
+    })[0]
+    
+    let heartOverImage = ''
+        
+    if(!targetObject.isLiked){
+        targetObject.likes++
+        document
+        targetObject.isLiked = !targetObject.isLiked
+        render()
+    }
+}
+
+function render(){
+    let posted = ''
+    
+    posts.forEach(function(post) {
+        
+        let likedClass = ''
+        
+        if (post.isLiked) {
+            likedClass = 'liked'
+        }
+        
         posted += `
         <div id="post">    
             <header class="header">
-                <img class="avatar" src="${posts[i].avatar}" alt="Avatar of Vincent Van Gogh">
+                <img class="avatar" src="${post.avatar}" alt="Avatar of Vincent Van Gogh">
                 <div class="user-info">
-                    <div><span class="name bold">${posts[i].name}</span></div>
-                    <span class="location">${posts[i].location}</span>
+                    <div><span class="name bold">${post.name}</span></div>
+                    <span class="location">${post.location}</span>
                 </div>
             </header>
-            <img class="img" id="img-el-${i}" src="${posts[i].post}">
+            <div class="image-container">
+                <img class="img" id="img-el" data-double-like="${post.uuid}" src="${post.post}">
+            </div>
             <footer>
                 <div class="icon-bar">
-                    <img class="icon" id="heart-el-${i}" src="images/icon-heart.png">
-                    <img class="icon" src="images/icon-comment.png">
-                    <img class="icon" src="images/icon-dm.png">
+                    <i class="fa-solid fa-heart icon icon-like ${likedClass}" id="likess" data-like="${post.uuid}"></i>
+                    <i class="fa-regular fa-comment icon"></i>
+                    <i class="fa-regular fa-paper-plane icon"></i>
                 </div>
                 <div class="like-counter">
-                    <span class="bold" id="likes-el">${posts[i].likes} likes</span>
+                    <span class="bold" id="likes-el">${post.likes} likes</span>
                 </div>
                 <div>
-                    <span><span class="bold" id="comment-el">${posts[i].username}</span> ${posts[i].comment}</span>
+                    <span><span class="bold" id="comment-el">${post.username}</span> ${post.comment}</span>
                 </div>
             </footer>
         </div>
         `
-    }
+    })
     newsfeedEl.innerHTML = posted
 }
 
-renderPost()
+render()
 
-newsfeedEl.addEventListener('click', function(e){
-    for (let i = 0; i < posts.length; i++) {
-        if(e.target.id === heartEl[i]){
-            posts[i].likes += 1
-            renderPost()
-        }
-    }
-})
 
-newsfeedEl.addEventListener('dblclick', function(e){
-    for (let i = 0; i < posts.length; i++) {
-        if(e.target.id === imgEl[i]){
-            posts[i].likes += 1
-            renderPost()
-        }
-    }
-})
+
+// Heart icon over image when double click on image but I don't know how to do it
+// <i class="fa-solid fa-heart heart-over-image"></i>
