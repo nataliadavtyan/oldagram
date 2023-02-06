@@ -37,7 +37,6 @@ function handleDoubleClickLike(postId){
         
     if(!targetObject.isLiked){
         targetObject.likes++
-        document
         targetObject.isLiked = !targetObject.isLiked
         render()
     }
