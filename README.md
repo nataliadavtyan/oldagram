@@ -20,7 +20,7 @@ The project is built using:
 * Rendered all the posts using the data file in Javascript.
 * Connected each like button to its post.
 * Added double-click to like the post.
-* There is an option to unlike the post.
+* Added an option to unlike the post.
 * Followed the design file on Figma.
 
 ## Room for improvement
