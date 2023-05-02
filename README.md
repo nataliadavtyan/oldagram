@@ -8,7 +8,7 @@ Users can scroll and like the posts by pressing the heart button or double-click
 ## Demo
 ![The demonstration](./oldagram.gif)
 
-Test it on Netlify: https://lambent-creponne-f8399e.netlify.app/
+Test it on Netlify: https://oldagram-natalia-davtyan.netlify.app/
 
 ## Technologies
 The project is built using:
